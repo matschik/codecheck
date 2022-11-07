@@ -30,7 +30,7 @@ async function main() {
     const programArgs = [test.filename];
 
     const testOutput = test.output?.trim();
-    const testInput = test.output?.trim();
+    const testInput = test.input?.trim();
 
     if (testInput) {
       programArgs.push(...testInput.split(" "));
