@@ -49,15 +49,16 @@ async function main() {
     if (testInput) {
       programArgs.push(...testInput.split(" "));
     }
-
+    const commandStr = `node ${programArgs.join(" ")}`;
+    core.info(commandStr);
     const { stdout, stderr } = await execFile("node", programArgs);
-
     const commandOutput = stdout.trim();
+
     if (commandOutput === testOutput) {
-      core.info(`${test.filename} PASS ✅`);
+      core.info("PASS ✅");
     } else {
       failedNbTest++;
-      core.info(`${test.filename} FAILED ❌`);
+      core.info(`FAILED ❌`);
       core.info(`expected: ${testOutput}`);
       core.info(`received: ${commandOutput}`);
     }
