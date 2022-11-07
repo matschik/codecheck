@@ -21,12 +21,18 @@ async function main() {
   let failedNbTest = 0;
 
   for (const test of tests) {
-    const { stdout, stderr } = await execFile("node", [
-      test.filename,
-      ...(test.input?.split(" ") || []),
-    ]);
+    const programArgs = [test.filename];
+
+    const testOutput = test.output?.trim();
+    const testInput = test.output?.trim();
+
+    if (testInput) {
+      programArgs.push(...testInput.split(" "));
+    }
+
+    const { stdout, stderr } = await execFile("node", programArgs);
+
     const commandOutput = stdout.trim();
-    const testOutput = test.output.trim();
     if (commandOutput === testOutput) {
       core.info(`${test.filename} PASS ✅`);
     } else {
