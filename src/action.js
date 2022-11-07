@@ -21,7 +21,10 @@ async function main() {
   let failedNbTest = 0;
 
   for (const test of tests) {
-    const { stdout, stderr } = await execFile("node", [test.filename]);
+    const { stdout, stderr } = await execFile("node", [
+      test.filename,
+      ...(test.input?.split(" ") || []),
+    ]);
     const commandOutput = stdout.trim();
     const testOutput = test.output.trim();
     if (commandOutput === testOutput) {
