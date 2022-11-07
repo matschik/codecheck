@@ -1,5 +1,5 @@
 name: "Codecheck"
-description: "Greet someone and record the time"
+description: "Bataillon codecheck"
 runs:
   using: "node16"
   main: "dist/index.js"

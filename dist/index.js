@@ -9239,6 +9239,7 @@ async function main() {
       core.info(`expected: ${testOutput}`);
       core.info(`received: ${commandOutput}`);
     }
+    core.info("\n");
   }
 
   if (failedNbTest > 0) {
