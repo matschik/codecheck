@@ -9180,7 +9180,7 @@ const {
 
 const execFile = (0,external_node_util_namespaceObject.promisify)(external_node_child_process_namespaceObject.execFile);
 
-async function main() {
+async function fetchGistTests() {
   const res = await node_modules_axios.request({
     method: "GET",
     url: "https://api.github.com/gists/d5d6a846e40460db3e1bb06641c54c5b",
@@ -9192,6 +9192,12 @@ async function main() {
   });
 
   const tests = res2.data;
+
+  return tests;
+}
+
+async function main() {
+  const tests = await fetchGistTests();
 
   let failedNbTest = 0;
 
