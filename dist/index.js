@@ -9172,13 +9172,25 @@ const {
 /* harmony default export */ const node_modules_axios = (lib_axios);
 
 
+;// CONCATENATED MODULE: external "node:fs/promises"
+const promises_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:fs/promises");
 ;// CONCATENATED MODULE: ./src/action.js
 
 
 
 
 
+
 const execFile = (0,external_node_util_namespaceObject.promisify)(external_node_child_process_namespaceObject.execFile);
+
+async function fileExists(path) {
+  try {
+    await (0,promises_namespaceObject.access)(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 async function fetchGistTests() {
   const res = await node_modules_axios.request({
@@ -9202,7 +9214,11 @@ async function main() {
   let failedNbTest = 0;
 
   for (const test of tests) {
-    const programArgs = [test.filename];
+    const filepath = test.filename;
+    if (!(await fileExists(filepath))) {
+      continue;
+    }
+    const programArgs = [filepath];
 
     const testOutput = test.output?.trim();
     const testInput = test.input?.trim();

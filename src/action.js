@@ -2,8 +2,18 @@ import core from "@actions/core";
 import childProcess from "node:child_process";
 import { promisify } from "node:util";
 import axios from "axios";
+import { access } from "node:fs/promises";
 
 const execFile = promisify(childProcess.execFile);
+
+async function fileExists(path) {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 async function fetchGistTests() {
   const res = await axios.request({
@@ -27,7 +37,11 @@ async function main() {
   let failedNbTest = 0;
 
   for (const test of tests) {
-    const programArgs = [test.filename];
+    const filepath = test.filename;
+    if (!(await fileExists(filepath))) {
+      continue;
+    }
+    const programArgs = [filepath];
 
     const testOutput = test.output?.trim();
     const testInput = test.input?.trim();
