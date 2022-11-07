@@ -2795,7 +2795,7 @@ const external_node_util_namespaceObject = __WEBPACK_EXTERNAL_createRequire(impo
 const execFile = (0,external_node_util_namespaceObject.promisify)(external_node_child_process_namespaceObject.execFile);
 
 async function main() {
-  const { stdout, stderr } = await execFile("node", ["fixtures/mycode.js"]);
+  const { stdout, stderr } = await execFile("node", ["mycode.js"]);
 
   console.log({ stdout, stderr });
 }
