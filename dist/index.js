@@ -9204,8 +9204,8 @@ async function main() {
     } else {
       failedNbTest++;
       core.info(`${test.filename} FAILED ❌`);
-      core.info(`expected: ${commandOutput}`);
-      core.info(`received: ${testOutput}`);
+      core.info(`expected: ${testOutput}`);
+      core.info(`received: ${commandOutput}`);
     }
   }
 
